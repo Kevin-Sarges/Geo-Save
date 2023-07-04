@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geosave/app/common/colors/colors_app.dart';
-import 'package:geosave/app/common/helpers/open_database.dart';
+import 'package:geosave/app/common/helpers/debouncer_helpers.dart';
 import 'package:geosave/app/common/routes/app_routes.dart';
 import 'package:geosave/app/common/widget/loading_widget.dart';
 import 'package:geosave/app/common/widget/text_button_widget.dart';
@@ -27,7 +27,7 @@ class _MapScreenState extends State<MapScreen> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   late GoogleMapController _controller;
-  final db = DatabaseHelper();
+  final debouncer = DebouncerHelpers();
 
   void _onCreatedMap(GoogleMapController controller) {
     _controller = controller;
@@ -129,8 +129,10 @@ class _MapScreenState extends State<MapScreen> {
                                 const SizedBox(width: 12),
                                 ButtoMapWidget(
                                   onPress: () {
-                                    _cubit.localizacaoUsuario();
-                                    _refreshIndicatorKey.currentState?.show();
+                                    debouncer(() {
+                                      _cubit.localizacaoUsuario();
+                                      _refreshIndicatorKey.currentState?.show();
+                                    });
                                   },
                                   text: 'Atualizar',
                                 ),
