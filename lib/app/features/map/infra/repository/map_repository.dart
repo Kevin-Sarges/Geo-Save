@@ -4,7 +4,6 @@ import 'package:geosave/app/common/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:geosave/app/features/map/domain/datasource/imap_datasourcer.dart';
 import 'package:geosave/app/features/map/domain/repository/imap_repository.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapRepository implements MapRepositoryImpl {
   final MapDataSourceImpl dataSource;

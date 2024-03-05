@@ -1,6 +1,5 @@
 import 'package:geosave/app/common/entity/local_entity.dart';
 import 'package:geosave/app/common/error/failure.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract base class MapState {}
 
