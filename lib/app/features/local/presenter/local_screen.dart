@@ -67,11 +67,29 @@ class _LocalScreenState extends State<LocalScreen> {
   }
 
   void _deleteLocal() {
-    _cubit.delete(widget.local.id);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Deletar"),
+        content: const Text("Você deseja deletar esse local?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Não"),
+          ),
+          TextButton(
+            onPressed: () {
+              _cubit.delete(widget.local.id);
 
-    setState(() {
-      _clickButton = true;
-    });
+              setState(() {
+                _clickButton = true;
+              });
+            },
+            child: const Text("Sim"),
+          ),
+        ],
+      ),
+    );
   }
 
   void _updateNomeLocal() {
@@ -96,6 +114,20 @@ class _LocalScreenState extends State<LocalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Local",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        leading: AppBarWidget(
+          onPressed: () {
+            Navigator.popAndPushNamed(context, AppRoutes.list);
+          },
+        ),
+      ),
       body: SafeArea(
         child: BlocListener<LocalCubit, LocalState>(
           bloc: _cubit,
@@ -113,13 +145,8 @@ class _LocalScreenState extends State<LocalScreen> {
               _showSnackBar('Nome do Local Atualizado');
             }
           },
-          child: ListView(
-            children: [
-              AppBarWidget(
-                onPressed: () {
-                  Navigator.popAndPushNamed(context, AppRoutes.list);
-                },
-              ),
+          child: SingleChildScrollView(
+            child:
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 20, 14, 0),
                 child: Column(
@@ -214,6 +241,9 @@ class _LocalScreenState extends State<LocalScreen> {
                               widget.local.lat,
                               widget.local.lon,
                             ),
+                            icon: BitmapDescriptor.defaultMarkerWithHue(
+                              BitmapDescriptor.hueGreen,
+                            ),
                           ),
                         },
                       ),
@@ -245,12 +275,16 @@ class _LocalScreenState extends State<LocalScreen> {
                                 color: ColorsApp.white100,
                               ),
                             )
-                          : const Text('Deletar local'),
+                          : const Text(
+                              'Deletar local',
+                              style: TextStyle(
+                                color: ColorsApp.white100,
+                              ),
+                            ),
                     ),
                   ],
                 ),
-              )
-            ],
+              ),
           ),
         ),
       ),
