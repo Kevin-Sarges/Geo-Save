@@ -44,6 +44,25 @@ class _SaveScreenState extends State<SaveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Salvar Localização',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        leading: AppBarWidget(
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.map,
+              (_) => false,
+            );
+          },
+        ),
+      ),
       body: SafeArea(
         child: BlocListener<SaveCubit, SaveState>(
           bloc: _cubit,
@@ -79,28 +98,10 @@ class _SaveScreenState extends State<SaveScreen> {
           },
           child: Column(
             children: [
-              AppBarWidget(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    AppRoutes.map,
-                    (_) => false,
-                  );
-                },
-              ),
               Expanded(
                 child: ListView(
                   padding: const EdgeInsets.fromLTRB(18, 20, 18, 0),
                   children: [
-                    const Text(
-                      'Salvar Localização',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Divider(),
-                    const SizedBox(height: 20),
                     Form(
                       key: _formKey,
                       child: Column(
@@ -141,6 +142,9 @@ class _SaveScreenState extends State<SaveScreen> {
                                 });
                               }
                             },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorsApp.green100,
+                      ),
                       child: _clickButton
                           ? const SizedBox(
                               width: 10,
@@ -149,7 +153,12 @@ class _SaveScreenState extends State<SaveScreen> {
                                 color: ColorsApp.white100,
                               ),
                             )
-                          : const Text('Salvar'),
+                          : const Text(
+                              'Salvar',
+                              style: TextStyle(
+                                color: ColorsApp.white100,
+                              ),
+                            ),
                     ),
                   ],
                 ),

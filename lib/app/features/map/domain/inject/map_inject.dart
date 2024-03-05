@@ -1,6 +1,7 @@
 import 'package:geosave/app/features/map/domain/datasource/imap_datasourcer.dart';
 import 'package:geosave/app/features/map/domain/repository/imap_repository.dart';
 import 'package:geosave/app/features/map/domain/usecase/get_geo_localizacao_usuario_usecase.dart';
+import 'package:geosave/app/features/map/domain/usecase/get_locais_salvos_usecase.dart';
 import 'package:geosave/app/features/map/infra/datasource/map_datasource.dart';
 import 'package:geosave/app/features/map/infra/repository/map_repository.dart';
 import 'package:geosave/app/features/map/presenter/controller/map_cubit.dart';
@@ -17,8 +18,15 @@ class MapInjectDependecy {
       () => GetGeoLocalizacaoUsuarioUseCase(repository: getIt()),
     );
 
+    getIt.registerFactory<GetLocaisSalvosUseCase>(
+      () => GetLocaisSalvosUseCase(repositoryImpl: getIt()),
+    );
+
     getIt.registerFactory(
-      () => MapCubit(getGeoLocalizacaoUsuarioUseCase: getIt()),
+      () => MapCubit(
+        getGeoLocalizacaoUsuarioUseCase: getIt(),
+        getLocaisSalvosUseCase: getIt(),
+      ),
     );
   }
 }

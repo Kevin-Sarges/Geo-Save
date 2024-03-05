@@ -29,6 +29,25 @@ class _ListLocalScreenState extends State<ListLocalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Localizações salvas',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        leading: AppBarWidget(
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.map,
+              (_) => false,
+            );
+          },
+        ),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () {
@@ -37,30 +56,7 @@ class _ListLocalScreenState extends State<ListLocalScreen> {
           },
           child: Column(
             children: [
-              AppBarWidget(onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  AppRoutes.map,
-                  (_) => false,
-                );
-              }),
               const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Localizações salvas',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Divider(),
-                  ],
-                ),
-              ),
               Expanded(
                 child: BlocBuilder<ListLocalCubit, ListLocalState>(
                   bloc: _cubit,

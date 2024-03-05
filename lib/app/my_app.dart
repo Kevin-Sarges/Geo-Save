@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Geo Save',
       theme: ThemeData(
         primarySwatch: Colors.green,
         appBarTheme: Theme.of(context).appBarTheme.copyWith(

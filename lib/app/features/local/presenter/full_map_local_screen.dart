@@ -46,6 +46,9 @@ class FullMapLocalScreen extends StatelessWidget {
                 lat,
                 lon,
               ),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen,
+              ),
             ),
           },
         ),

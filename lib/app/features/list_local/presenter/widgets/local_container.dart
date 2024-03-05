@@ -41,9 +41,9 @@ class LocalContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              'assets/images/pino-de-localizacao.png',
-              width: width * 0.2,
+            const Icon(
+              Icons.pin_drop,
+              color: ColorsApp.green100,
             ),
             Text(
               local.nomeLocal,
